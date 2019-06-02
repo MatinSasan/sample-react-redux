@@ -33,7 +33,12 @@ class PizzaMaker extends Component {
   }
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.isAuth) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.onSetAuthRedirectPath('/checkout');
+      this.props.history.push('/auth');
+    }
   };
 
   purchaseCancel = () => {
@@ -71,6 +76,7 @@ class PizzaMaker extends Component {
             price={this.props.price}
             purchasable={this.updatePurchaseState(this.props.ings)}
             ordered={this.purchaseHandler}
+            isAuth={this.props.isAuth}
           />
         </React.Fragment>
       );
@@ -100,7 +106,8 @@ const mapStateToProps = state => {
   return {
     ings: state.pizzaMaker.ingredients,
     price: state.pizzaMaker.totalPrice,
-    error: state.pizzaMaker.error
+    error: state.pizzaMaker.error,
+    isAuth: state.auth.token !== null
   };
 };
 
@@ -109,7 +116,8 @@ const mapDispatchToProps = dispatch => {
     onIngredientAdded: igName => dispatch(actions.addIngredient(igName)),
     onIngredientRemoved: igName => dispatch(actions.removeIngredient(igName)),
     onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase: () => dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   };
 };
 
