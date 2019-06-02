@@ -110,7 +110,7 @@ export class ContactData extends Component {
       orderData: formData
     };
 
-    this.props.onOrderPizza(order);
+    this.props.onOrderPizza(order, this.props.token);
   };
 
   checkValidity(value, rules) {
@@ -205,13 +205,15 @@ const mapStateToProps = state => {
   return {
     ings: state.pizzaMaker.ingredients,
     price: state.pizzaMaker.totalPrice,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderPizza: orderData => dispatch(actions.purchasePizza(orderData))
+    onOrderPizza: (orderData, token) =>
+      dispatch(actions.purchasePizza(orderData, token))
   };
 };
 
