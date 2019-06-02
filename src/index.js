@@ -10,12 +10,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import PizzaReducer from './store/reducers/pizzaMaker';
 import orderReducer from './store/reducers/order';
+import authReducer from './store/reducers/auth';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   pizzaMaker: PizzaReducer,
-  order: orderReducer
+  order: orderReducer,
+  auth: authReducer
 });
 
 const store = createStore(
