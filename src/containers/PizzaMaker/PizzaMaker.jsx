@@ -11,7 +11,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import ErrorHandler from '../../hoc/ErrorHandler/ErrorHandler';
 import * as actions from '../../store/actions/index';
 
-class PizzaMaker extends Component {
+export class PizzaMaker extends Component {
   state = {
     purchasing: false
   };
